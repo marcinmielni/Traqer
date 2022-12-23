@@ -16,45 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: const AppSlider()/*Scaffold(
-          body: ListView(
-            scrollDirection: Axis.horizontal,
-            addAutomaticKeepAlives: false,
-            children: [
-              Container(
-                  color: Colors.red,
-                  height: 500,
-                  width: 500,
-              ),
-              Container(
-                color: Colors.green,
-                height: 500,
-                width: 500,
-              ),
-              Container(
-                color: Colors.blue,
-                height: 500,
-                width: 500,
-              ),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-    ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.map),
-              label: 'Map',
-    ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.summarize),
-              label: 'Summary',
-    )
-    ],
-      ),
-      ),*/
+      home: const AppSlider()
     );
   }
 }

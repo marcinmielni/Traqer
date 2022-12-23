@@ -1,14 +1,23 @@
 import 'package:geolocator/geolocator.dart';
+import 'dart:async';
+import 'dart:io';
+
 
 class GeoController {
   GeoController(String S) async {
     LocationPermission permission = await Geolocator.checkPermission();
+    Stream<Location>;
   }
 
-  String[] GetPosition(){
+  Future<Location> GetPosition(Stream<Location> stream){
     return ;
   }
-  Future<void> streamPosition() async {
+  void writePosition(File f, Stream<Location> stream){
+    f.open(mode: FileMode.write);
+    f.
+  }
+
+  Stream<Location> streamPosition() async* {
     LocationPermission permission = await Geolocator.checkPermission();
 
     if (permission == LocationPermission.denied) {
@@ -21,8 +30,11 @@ class GeoController {
         print("GPS Location service is granted");
       }
     }else{
-      print("GPS Location permission granted."); //Do actual tracking after permissions granted
+      while(TODO: Implement switch){//Do actual tracking after permissions granted
+        yield GetPosition();
+      }
     }
   }
+
 }
 
