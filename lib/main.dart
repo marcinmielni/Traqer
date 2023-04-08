@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:traqer/app_slider.dart';
+import 'package:traqer/Views/app_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,3 +76,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
