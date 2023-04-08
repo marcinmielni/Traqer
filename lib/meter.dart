@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:traqer/Pages/liveData.dart';
 
 class Meter extends StatefulWidget {
 

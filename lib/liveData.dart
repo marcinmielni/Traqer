@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:traqer/Pages/liveData.dart';
-import 'package:traqer/Pages/meter.dart';
+import 'package:traqer/meter.dart';
 
 class LiveData extends StatelessWidget{
 
