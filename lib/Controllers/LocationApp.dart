@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -17,6 +16,45 @@ class _LocationAppState extends State<LocationApp> {
 
 
 
+
+  @override
+  Widget build(BuildContext context){
+
+=======
+  var locationMessage = "";
+
+
+
+  void getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    // Test if location services are enabled.
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled.');
+    }
+
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permissions are denied');
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, we cannot request permissions.');
+    }
+    var position = await Geolocator
+        .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    var lastPosition = await Geolocator.getLastKnownPosition();
+    print(lastPosition);
+    setState(() {
+      locationMessage = "$position";
+    });
+  }
 
   @override
   Widget build(BuildContext context){
