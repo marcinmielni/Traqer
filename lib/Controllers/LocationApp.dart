@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -12,6 +13,14 @@ class LocationApp extends StatefulWidget {
 
 class _LocationAppState extends State<LocationApp> {
 
+
+
+
+
+  @override
+  Widget build(BuildContext context){
+
+=======
   var locationMessage = "";
 
 
@@ -49,6 +58,7 @@ class _LocationAppState extends State<LocationApp> {
 
   @override
   Widget build(BuildContext context){
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Location Services"),
@@ -81,7 +91,11 @@ class _LocationAppState extends State<LocationApp> {
                 backgroundColor: MaterialStatePropertyAll(Colors.blue)
               ),
               onPressed: () {
-                getCurrentLocation();
+                if(subscription.isPaused) {
+                  subscription.resume();
+                }else{
+                  subscription.pause();
+                }
               },
               child: const Text("Get current Location",
                 style: TextStyle(
