@@ -6,7 +6,7 @@ class LocationController{
 
   var locationMessage = "";
 
-  Stream<Position> positionStream(Duration interval) {
+  static Stream<Position> positionStream(Duration interval) {
     late StreamController<Position> controller;
     Timer? timer;
     Position lastPosition;
@@ -37,7 +37,7 @@ class LocationController{
   }
 
 
-  Future<Position> getCurrentLocation() async {
+  static Future<Position> getCurrentLocation() async {
     bool serviceEnabled;
     LocationPermission permission;
 
@@ -62,10 +62,7 @@ class LocationController{
     var position = await Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
     var lastPosition = await Geolocator.getLastKnownPosition();
-    print(lastPosition);
-    setState(() {
-      locationMessage = "$position";
-    });
+    print([position.latitude, position.longitude, position.altitude, position.speed, position.heading]);
     return position;
   }
 }
