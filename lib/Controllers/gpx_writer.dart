@@ -11,35 +11,8 @@ class GpxWriter{
     return directory.path;
   }
 
-  Stream<Position> gpxStream(Duration interval) {
-    late StreamController<Position> controller;
-    Timer? timer;
-    Position lastPosition;
+  StreamSubscription<Position> gpxSubscription(){
 
-    Future<void> tick(_) async {
-      lastPosition = await LocationController.getCurrentLocation();
-      controller.add(lastPosition);
-      //TODO:append last position to .gpx file at tracks/_localPath
-    }
-
-    void start(){
-      print("Stream started");
-      timer = Timer.periodic(interval, tick);
-    }
-
-    void stop(){
-      print("Stream stopped");
-      timer?.cancel();
-      timer=null;
-    }
-
-    controller = StreamController<Position>(
-        onListen: start,
-        onPause: stop,
-        onResume: start,
-        onCancel: stop);
-
-    return controller.stream;
   }
 
   void createGpx(){

@@ -9,7 +9,6 @@ class LocationController{
   static Stream<Position> positionStream(Duration interval) {
     late StreamController<Position> controller;
     Timer? timer;
-    Position lastPosition;
 
     Future<void> tick(_) async {
       var lastPosition = await getCurrentLocation();
@@ -61,8 +60,8 @@ class LocationController{
     }
     var position = await Geolocator
         .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-    var lastPosition = await Geolocator.getLastKnownPosition();
-    print([position.latitude, position.longitude, position.altitude, position.speed, position.heading]);
+    //var lastPosition = await Geolocator.getLastKnownPosition();
+    //print([position.latitude, position.longitude, position.altitude, position.speed, position.heading]);
     return position;
   }
 }
