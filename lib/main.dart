@@ -1,24 +1,30 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:traqer/Builders/dialog_builder.dart';
+import 'package:traqer/permissions.dart';
 import 'Controllers/location_controller.dart';
 import 'Views/Home.dart';
 import 'Views/LocationApp.dart';
 import 'Views/liveData.dart';
 
-void main() {
+void main(){
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(const Traqer());
 }
 
 class Traqer extends StatefulWidget {
 
   const Traqer({Key? key}) : super(key: key);
-
+  
   @override
   State<Traqer> createState() => _TraqerState();
 }
 
 class _TraqerState extends State<Traqer> {
+
+  
 
   Stream<Position> positionStr = LocationController.positionStream(const Duration(seconds: 5));
 
@@ -32,6 +38,7 @@ class _TraqerState extends State<Traqer> {
         _lastPosition = event;
       });
     });
+    subscription.pause();
     super.initState();
   }
 
@@ -47,9 +54,9 @@ class _TraqerState extends State<Traqer> {
       ),
       home: PageView(
         children: [
-          const Home(),
+          Home(),
           const LiveData(),
-          LocationApp(positionStr),
+          LocationApp(subscription),
       ],
     )
     );
