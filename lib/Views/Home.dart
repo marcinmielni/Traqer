@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:traqer/Views/menu.dart';
+import 'package:traqer/Views/week_summary.dart';
 import 'dart:io';
 import 'dart:async';
 import '../Builders/dialog_builder.dart';
 import '../permissions.dart';
 import 'package:permission_handler/permission_handler.dart';
+import '../meter.dart';
+import 'LocationApp.dart';
+import 'liveData.dart';
 
 class Home extends StatelessWidget {
 
@@ -12,21 +17,35 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return
-      Container(color: Colors.cyanAccent,
-        child: Column(
+      Scaffold(
+        backgroundColor: Colors.cyanAccent,
+        floatingActionButton: Menu(),
+        body: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
             IconButton(
-              icon: const Icon(Icons.play_arrow, size: 80,),
+              icon: const Icon(Icons.play_arrow, size: 120,),
               color: Colors.green,
-              onPressed: () async {
-                Map<Permission, PermissionStatus> statuses = await [
+              onPressed: () {
+                /*Map<Permission, PermissionStatus> statuses = await [
                   Permission.location,
                   Permission.locationAlways,
-                ].request();
+                ].request();*/
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) =>
+                      PageView(
+                        children: const [
+                          LiveData(),
+                          LocationApp(),
+                        ],
+                      )),
+                );
               },
             ),
+             const WeekSummary(),
         ])
       );
   }

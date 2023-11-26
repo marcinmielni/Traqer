@@ -52,13 +52,7 @@ class _TraqerState extends State<Traqer> {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: PageView(
-        children: [
-          Home(),
-          const LiveData(),
-          LocationApp(subscription),
-      ],
-    )
+      home: Home(),
     );
   }
 }

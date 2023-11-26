@@ -15,11 +15,16 @@ class Meter extends StatefulWidget {
 class _MeterState extends State<Meter> {
   @override
   Widget build(BuildContext context) {
-    return Expanded(
+    return Flexible(
       child : Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(50),
-        decoration: BoxDecoration(border: Border.all(color: Colors.lightBlue)),
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(5),
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.lightBlue),
+            borderRadius: const BorderRadius.all(Radius.circular(50)),
+        ),
+        width: double.infinity,
+        // constraints: BoxConstraints.expand(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [

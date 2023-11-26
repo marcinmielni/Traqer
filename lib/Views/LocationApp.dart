@@ -6,9 +6,8 @@ import 'package:geolocator/geolocator.dart';
 
 class LocationApp extends StatefulWidget {
 
-  const LocationApp(StreamSubscription<Position> streamSubscription, {Key? key}) : super(key: key);
+  const LocationApp( {Key? key}) : super(key: key);
 
-  static get streamSubscription => streamSubscription;
 
   @override
   State<LocationApp> createState() => _LocationAppState();
@@ -54,8 +53,8 @@ class _LocationAppState extends State<LocationApp> {
                         backgroundColor: MaterialStatePropertyAll(Colors.green)
                     ),
                     onPressed: () {
-                      if (LocationApp.streamSubscription.isPaused) {
-                        LocationApp.streamSubscription.resume();
+                      if (true) {
+                        int i;
                       }
                     },
                     child: const Text("Start training",
@@ -68,7 +67,7 @@ class _LocationAppState extends State<LocationApp> {
                         backgroundColor: MaterialStatePropertyAll(Colors.red)
                     ),
                     onPressed: () {
-                      LocationApp.streamSubscription.pause();
+                      int i;
                     },
                     child: const Text("Stop training",
                         style: TextStyle(
