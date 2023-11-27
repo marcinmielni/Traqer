@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:traqer/Views/menu.dart';
 import 'package:traqer/Views/week_summary.dart';
 import 'dart:io';
@@ -9,17 +10,23 @@ import 'package:permission_handler/permission_handler.dart';
 import '../meter.dart';
 import 'LocationApp.dart';
 import 'liveData.dart';
+import 'dart:isolate';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
 
-  const Home({Key? key}) : super(key:key);
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
     return
       Scaffold(
         backgroundColor: Colors.cyanAccent,
-        floatingActionButton: Menu(),
+        floatingActionButton: const Menu(),
         body: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -41,7 +48,8 @@ class Home extends StatelessWidget {
                           LiveData(),
                           LocationApp(),
                         ],
-                      )),
+                      )
+                  ),
                 );
               },
             ),

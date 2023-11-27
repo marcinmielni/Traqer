@@ -1,12 +1,15 @@
 import 'dart:async';
+import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import '../Controllers/location_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 
+import '../animated_button.dart';
+
 class LocationApp extends StatefulWidget {
 
-  const LocationApp( {Key? key}) : super(key: key);
+  const LocationApp({Key? key}) : super(key: key);
 
 
   @override
@@ -25,55 +28,25 @@ class _LocationAppState extends State<LocationApp> {
             title: const Text("Location Services"),
 
           ),
-
           body: Center(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+
                 crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment:  MainAxisAlignment.spaceEvenly,
                 children: [
-                  const Icon(
-                      Icons.location_on,
-                      size: 46.0,
-                      color: Colors.blue
-                  ),
-                  const SizedBox(
-                      height: 10.0
-                  ),
-                  const Text(
-                    "Get user Location",
-                    style: TextStyle(
-                        fontSize: 26.0, fontWeight: FontWeight.bold),
+                  Container(
+                    height: 400,
+                    width: double.infinity,
+                    color: Colors.pinkAccent,
+                    child: const Center(
+                      child: Text("MAPA"),
+                    ),
                   ),
                   const SizedBox(
                     height: 20.0,
                   ),
-                  Text("Position: yoink!"),
-                  TextButton(
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.green)
-                    ),
-                    onPressed: () {
-                      if (true) {
-                        int i;
-                      }
-                    },
-                    child: const Text("Start training",
-                        style: TextStyle(
-                          color: Colors.white,
-                        )),
-                  ),
-                  TextButton(
-                    style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(Colors.red)
-                    ),
-                    onPressed: () {
-                      int i;
-                    },
-                    child: const Text("Stop training",
-                        style: TextStyle(
-                          color: Colors.white,
-                        )),
-                  )
+                  const Text("Position: yoink!"),
+                  const Center(child: AnimatedButton()),
                 ],
               )
           )

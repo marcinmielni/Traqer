@@ -1,9 +1,20 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:traqer/meter.dart';
 
-class LiveData extends StatelessWidget{
+import '../animated_button.dart';
 
-  const LiveData({Key? key}) : super(key:key);
+class LiveData extends StatefulWidget {
+
+  const LiveData({Key? key})
+      : super(key: key);
+
+  @override
+  State<LiveData> createState() => _LiveDataState();
+}
+class _LiveDataState extends State<LiveData> {
 
   @override
   Widget build(BuildContext context){
@@ -38,7 +49,7 @@ class LiveData extends StatelessWidget{
                     Meter('Speed', 15),
                   ],
               ),
-
+              const Center(child: AnimatedButton()),
             ],
         )
     )

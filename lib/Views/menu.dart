@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:traqer/Views/my_activities.dart';
-
 import 'about.dart';
 
 
@@ -18,8 +17,8 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      buttonSize: const Size(65,65),
-      childrenButtonSize: const Size(65, 65),
+      buttonSize: const Size(80,80),
+      childrenButtonSize: const Size(80, 80),
       animatedIcon: AnimatedIcons.menu_close,
       children: [
         SpeedDialChild(
