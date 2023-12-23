@@ -10,8 +10,9 @@ import 'Views/Home.dart';
 import 'Views/LocationApp.dart';
 import 'Views/liveData.dart';
 
-void main(){
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await LocationController.getPosition();
   runApp(const Traqer());
 }
 
@@ -25,21 +26,6 @@ class Traqer extends StatefulWidget {
 
 class _TraqerState extends State<Traqer> {
 
-  Stream<Position> positionStr = LocationController.positionStream(const Duration(seconds: 5));
-  late StreamSubscription<Position> subscription;
-  Position _lastPosition = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 0, altitude: 0, altitudeAccuracy: 0, heading: 0, headingAccuracy: 0, speed: 0, speedAccuracy: 0, isMocked: true);
-
-  @override
-  void initState(){
-    subscription = positionStr.listen((event) {
-      setState(() {
-        _lastPosition = event;
-      });
-    });
-    subscription.pause();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -47,7 +33,7 @@ class _TraqerState extends State<Traqer> {
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
       ),
-      home: Home(),
+      home: const Home(),
     );
   }
 }

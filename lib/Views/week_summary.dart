@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../meter.dart';
+import 'meter.dart';
 
 class WeekSummary extends StatefulWidget{
 

@@ -1,16 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:traqer/Views/menu.dart';
 import 'package:traqer/Views/week_summary.dart';
-import 'dart:io';
-import 'dart:async';
-import '../Builders/dialog_builder.dart';
-import '../permissions.dart';
-import 'package:permission_handler/permission_handler.dart';
-import '../meter.dart';
-import 'LocationApp.dart';
 import 'liveData.dart';
-import 'dart:isolate';
+import 'map.dart';
 
 class Home extends StatefulWidget {
 
@@ -44,9 +36,10 @@ class _HomeState extends State<Home> {
                   context,
                   MaterialPageRoute(builder: (context) =>
                       PageView(
-                        children: const [
-                          LiveData(),
-                          LocationApp(),
+                        children: [
+                          const LiveData(),
+                          //const LocationApp(),
+                          Map(),
                         ],
                       )
                   ),

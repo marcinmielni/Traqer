@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:traqer/meter.dart';
+import 'package:traqer/Views/meter.dart';
 
-import '../animated_button.dart';
+import 'start_stop_button.dart';
 
 class LiveData extends StatefulWidget {
 
@@ -49,7 +49,7 @@ class _LiveDataState extends State<LiveData> {
                     Meter('Speed', 15),
                   ],
               ),
-              const Center(child: AnimatedButton()),
+              Center(child: StartStopButton()),
             ],
         )
     )
