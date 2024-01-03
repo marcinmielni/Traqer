@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:traqer/Views/my_activities.dart';
-import 'about.dart';
+import '../Views/about.dart';
 
 
 
@@ -31,7 +31,7 @@ class _MenuState extends State<Menu> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) =>
-                  const MyActivities()
+                  MyActivities()
                   )
               );
             }

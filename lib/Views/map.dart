@@ -6,7 +6,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import '../Controllers/location_controller.dart';
-import 'start_stop_button.dart';
+import '../Widgets/start_stop_button.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 
 class Map extends StatefulWidget {

@@ -1,14 +1,7 @@
-import 'dart:async';
-import 'dart:io';
-import 'dart:isolate';
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:traqer/Builders/dialog_builder.dart';
-import 'package:traqer/permissions.dart';
 import 'Controllers/location_controller.dart';
 import 'Views/Home.dart';
-import 'Views/LocationApp.dart';
-import 'Views/liveData.dart';
+
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

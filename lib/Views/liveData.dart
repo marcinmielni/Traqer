@@ -1,10 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:traqer/Views/meter.dart';
-
-import 'start_stop_button.dart';
+import 'package:traqer/Widgets/meter.dart';
+import '../Widgets/start_stop_button.dart';
 
 class LiveData extends StatefulWidget {
 

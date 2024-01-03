@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'map.dart';
 
-import 'start_stop_button.dart';
+import '../Widgets/start_stop_button.dart';
 
 class LocationApp extends StatefulWidget {
 

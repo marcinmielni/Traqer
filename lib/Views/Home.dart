@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:traqer/Views/menu.dart';
-import 'package:traqer/Views/week_summary.dart';
+import 'package:traqer/Widgets/menu.dart';
+import 'package:traqer/Widgets/week_summary.dart';
 import 'liveData.dart';
 import 'map.dart';
 
