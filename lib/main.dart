@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'Controllers/location_controller.dart';
 import 'Views/Home.dart';
 import 'permissions.dart';
 
@@ -7,7 +8,7 @@ import 'permissions.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   Permissions.requestRequiredPermissions();
-  //await LocationController.getPosition();
+  await LocationController.getPosition();
   runApp(const Traqer());
 }
 
