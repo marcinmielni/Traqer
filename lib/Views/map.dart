@@ -20,8 +20,7 @@ class _MapState extends State<Map> {
 
   late bool _navigationMode;
   late int _pointerCount;
-  late FollowOnLocationUpdate _followOnLocationUpdate;
-  late TurnOnHeadingUpdate _turnOnHeadingUpdate;
+  late AlignOnUpdate _alignOnUpdate;
   late StreamController<double?> _followCurrentLocationStreamController;
   late StreamController<void> _turnHeadingUpStreamController;
 
@@ -30,8 +29,7 @@ class _MapState extends State<Map> {
     super.initState();
     _navigationMode = false;
     _pointerCount = 0;
-    _followOnLocationUpdate = FollowOnLocationUpdate.never;
-    _turnOnHeadingUpdate = TurnOnHeadingUpdate.never;
+    _alignOnUpdate = AlignOnUpdate.never;
     _followCurrentLocationStreamController = StreamController<double?>();
     _turnHeadingUpStreamController = StreamController<void>();
   }
@@ -39,19 +37,14 @@ class _MapState extends State<Map> {
   @override
   void dispose() {
     _followCurrentLocationStreamController.close();
-    _turnHeadingUpStreamController.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: const Text("Map"),
-      // ),
       backgroundColor: const Color(0xFF56358B),
         body: Stack(
-          //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SizedBox(
               width: double.infinity,
@@ -60,7 +53,6 @@ class _MapState extends State<Map> {
               Align(
                 alignment: Alignment.topCenter,
                 child: FlutterMap(
-                  //mapController: MapController(),
                 options: MapOptions(
                   initialCenter: LatLng(LocationController.position!.latitude, LocationController.position!.longitude),
                   initialZoom: 13,
@@ -72,8 +64,7 @@ class _MapState extends State<Map> {
                   onMapEvent: (evn) {
                     if(evn is MapEventMoveStart){
                       _navigationMode = false;
-                      _turnOnHeadingUpdate = TurnOnHeadingUpdate.never;
-                      _followOnLocationUpdate = FollowOnLocationUpdate.never;
+                      _alignOnUpdate = AlignOnUpdate.never;
                     }
                   }
                 ),
@@ -84,12 +75,12 @@ class _MapState extends State<Map> {
                     maxZoom: 19,
                   ),
                   CurrentLocationLayer(
-                    followScreenPoint: const Point(0.0, 1.0),
-                    followScreenPointOffset: const Point(0.0, -60.0),
-                    followCurrentLocationStream: _followCurrentLocationStreamController.stream,
-                    turnHeadingUpLocationStream: _turnHeadingUpStreamController.stream,
-                    followOnLocationUpdate: _followOnLocationUpdate,
-                    turnOnHeadingUpdate: _turnOnHeadingUpdate,
+                    focalPoint: const FocalPoint(ratio: Point(0.0, 1.0), offset: Point(0.0, -60.0)),
+                    //followScreenPointOffset: const Point(0.0, -60.0),
+                    alignPositionStream: _followCurrentLocationStreamController.stream,
+                    alignDirectionStream: _turnHeadingUpStreamController.stream,
+                    alignPositionOnUpdate: _alignOnUpdate,
+                    alignDirectionOnUpdate: _alignOnUpdate,
                     style: const LocationMarkerStyle(
                       marker: DefaultLocationMarker(
                         child: Icon(
@@ -97,7 +88,7 @@ class _MapState extends State<Map> {
                           color: Colors.white,
                         ),
                       ),
-                      markerSize: Size(40, 40),
+                      markerSize: Size.square(40.0),
                       markerDirection: MarkerDirection.heading,
                     ),
                   ),
@@ -112,12 +103,12 @@ class _MapState extends State<Map> {
                           setState(
                                 () {
                               _navigationMode = !_navigationMode;
-                              _followOnLocationUpdate = _navigationMode
-                                  ? FollowOnLocationUpdate.always
-                                  : FollowOnLocationUpdate.never;
-                              _turnOnHeadingUpdate = _navigationMode
-                                  ? TurnOnHeadingUpdate.always
-                                  : TurnOnHeadingUpdate.never;
+                              _alignOnUpdate = _navigationMode
+                                  ? AlignOnUpdate.always
+                                  : AlignOnUpdate.never;
+                              _alignOnUpdate = _navigationMode
+                                  ? AlignOnUpdate.always
+                                  : AlignOnUpdate.never;
                             },
                           );
                           if (_navigationMode) {
@@ -148,8 +139,7 @@ class _MapState extends State<Map> {
   void _onPointerDown(e, l) {
     _pointerCount++;
     setState(() {
-      _followOnLocationUpdate = FollowOnLocationUpdate.never;
-      _turnOnHeadingUpdate = TurnOnHeadingUpdate.never;
+      _alignOnUpdate = AlignOnUpdate.never;
     });
   }
 
@@ -157,12 +147,10 @@ class _MapState extends State<Map> {
   void _onPointerUp(e, l) {
     if (--_pointerCount == 0 && _navigationMode) {
       setState(() {
-        _followOnLocationUpdate = FollowOnLocationUpdate.always;
-        _turnOnHeadingUpdate = TurnOnHeadingUpdate.always;
+        _alignOnUpdate = AlignOnUpdate.always;
       });
       _followCurrentLocationStreamController.add(18);
       _turnHeadingUpStreamController.add(null);
     }
   }
 }
-

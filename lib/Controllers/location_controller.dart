@@ -10,9 +10,16 @@ class LocationController{
   static LocationSettings locationSettings = AndroidSettings(
     forceLocationManager: true,
     accuracy: LocationAccuracy.high,
-    foregroundNotificationConfig: const ForegroundNotificationConfig(notificationTitle: 'Tracking', notificationText: 'in progress'),
+    foregroundNotificationConfig: const ForegroundNotificationConfig(
+        notificationTitle: 'Tracking',
+        notificationText: 'in progress',
+        //notificationIcon: AndroidResource(name: 'ic_launcher_foreground', defType: 'mipmap-hdpi'),
+        enableWakeLock: true,
+        setOngoing: true,
+    ),
     intervalDuration: const Duration(seconds: 3)
   );
+
   static Position? position;
   static Stream<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).asBroadcastStream();
 
