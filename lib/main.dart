@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
-import 'Controllers/location_controller.dart';
 import 'Views/Home.dart';
+import 'permissions.dart';
+
 
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await LocationController.getPosition();
+  Permissions.requestRequiredPermissions();
+  //await LocationController.getPosition();
   runApp(const Traqer());
 }
 
@@ -25,6 +27,7 @@ class _TraqerState extends State<Traqer> {
       title: 'Traqer',
       theme: ThemeData(
         primarySwatch: Colors.blueGrey,
+        // textTheme:
       ),
       home: const Home(),
     );

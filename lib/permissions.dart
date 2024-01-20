@@ -1,31 +1,34 @@
-import 'package:geolocator/geolocator.dart';
-import 'package:open_settings/open_settings.dart';
+import 'dart:io';
+import 'package:location/location.dart';
+import 'package:permission_handler/permission_handler.dart' as ph;
 
-
-class Permissions{
-  static Future<bool> requestGPS() async{
+class Permissions {
+  static Future<bool> requestRequiredPermissions() async{
+    Location location = Location();
 
     bool serviceEnabled;
-    LocationPermission permission;
+    ph.PermissionStatus permissionStatus;
+    //LocationData locationData;
 
-    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //Request location service to be enabled, closes app otherwise
+    serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
-      return Future.error('Location services are disabled.');
-    }
-
-    permission = await Geolocator.checkPermission();
-    if (permission == LocationPermission.denied) {
-      permission = await Geolocator.requestPermission();
-      if (permission == LocationPermission.denied) {
-        return Future.error('Location permissions are denied');
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        exit(0);
       }
     }
 
-    if (permission == LocationPermission.deniedForever) {
-      return Future.error('Location permissions are permanently denied, we cannot request permissions.');
+    permissionStatus = await ph.Permission.locationWhenInUse.request();
+    if(permissionStatus.isGranted){
+      permissionStatus = await ph.Permission.locationAlways.request();
+      if(!permissionStatus.isGranted) {
+        print('permissions denid');
+      }
+    }else{
+      exit(0);
     }
-    return true;
+    //locationData = await location.getLocation();
+    return true; //TODO: remove
   }
-
-
 }

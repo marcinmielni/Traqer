@@ -1,89 +1,48 @@
 import 'dart:async';
-import 'package:latlong2/latlong.dart';
+import 'package:gpx/gpx.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:traqer/Controllers/track_writer.dart';
+
+
 
 class LocationController{
 
-  static LocationSettings locationSettings = const LocationSettings(
+  static LocationSettings locationSettings = AndroidSettings(
+    forceLocationManager: true,
     accuracy: LocationAccuracy.high,
-    distanceFilter: 10,
+    foregroundNotificationConfig: const ForegroundNotificationConfig(notificationTitle: 'Tracking', notificationText: 'in progress'),
+    intervalDuration: const Duration(seconds: 3)
   );
-  static late LatLng position;
-  static final Stream<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings);
+  static Position? position;
+  static Stream<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).asBroadcastStream();
 
   static StreamSubscription<Position>? positionStreamSubscription;
-  static StreamSubscription<Position>? gpxStreamSubscription;
+  // static StreamSubscription<Position>? gpxStreamSubscription;
 
-  static Future<int?> getPosition() async{
+  static Future<void> getPosition() async{
     Geolocator.getCurrentPosition().then((Position _position){
-      position = LatLng(_position.latitude, _position.longitude);
+      position = _position;
     },
         onError: (e){
-          position = const LatLng(21, 37);
-          return 1;
+          position = Position(longitude: 0, latitude: 0, timestamp: DateTime.now(), accuracy: 0, altitude: 0, altitudeAccuracy: 0, heading: 0, headingAccuracy: 0, speed: 0, speedAccuracy: 0);
         });
-    return 0;
   }
 
-  // var locationMessage = "";
-  //
-  //
-  // static Stream<Position> positionStream(Duration interval) {
-  //   late StreamController<Position> controller;
-  //   Timer? timer;
-  //
-  //   Future<void> tick(_) async {
-  //     var lastPosition = await getCurrentLocation();
-  //     controller.add(lastPosition);
-  //   }
-  //
-  //   void start(){
-  //     print("Stream started");
-  //     timer = Timer.periodic(interval, tick);
-  //   }
-  //
-  //   void stop(){
-  //     print("Stream stopped");
-  //     timer?.cancel();
-  //     timer=null;
-  //   }
-  //
-  //   controller = StreamController<Position>(
-  //       onListen: start,
-  //       onPause: stop,
-  //       onResume: start,
-  //       onCancel: stop);
-  //
-  //   return controller.stream;
-  // }
-  //
-  //
-  // static Future<Position> getCurrentLocation() async {
-  //   bool serviceEnabled;
-  //   LocationPermission permission;
-  //
-  //   // Test if location services are enabled.
-  //   serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  //   if (!serviceEnabled) {
-  //     return Future.error('Location services are disabled.');
-  //   }
-  //
-  //   permission = await Geolocator.checkPermission();
-  //   if (permission == LocationPermission.denied) {
-  //     permission = await Geolocator.requestPermission();
-  //     if (permission == LocationPermission.denied) {
-  //       return Future.error('Location permissions are denied');
-  //     }
-  //   }
-  //
-  //   if (permission == LocationPermission.deniedForever) {
-  //     return Future.error(
-  //         'Location permissions are permanently denied, we cannot request permissions.');
-  //   }
-  //   var position = await Geolocator
-  //       .getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
-  //   //var lastPosition = await Geolocator.getLastKnownPosition();
-  //   //print([position.latitude, position.longitude, position.altitude, position.speed, position.heading]);
-  //   return position;
-  //}
+  static void startTracking(){
+    TrackWriter.initGpx();
+    LocationController.positionStreamSubscription = LocationController.positionStream.listen(
+            (Position? _position) {
+          print(position == null ? 'Unknown' : '${_position?.latitude.toString()}, ${_position?.longitude.toString()}');
+          TrackWriter.addTrackPoint(Wpt(lat: _position?.latitude,lon: _position?.longitude));
+          LocationController.position = _position!;
+        });
+    //print("start");
+  }
+
+  static void stopTracking(){
+    LocationController.positionStreamSubscription?.pause();
+    LocationController.positionStreamSubscription = null;
+    TrackWriter.saveGpx();
+    //print("null");
+  }
 }

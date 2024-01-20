@@ -1,10 +1,9 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:open_settings/open_settings.dart';
 
 class DialogBuilder{
-  static Future<void> build(BuildContext context, dynamic e, String message, Function function) {
+  static Future<void> build(BuildContext context, dynamic e, String message, Future<void> function) {
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {

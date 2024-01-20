@@ -1,9 +1,7 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import '../Controllers/location_controller.dart';
 import '../Widgets/start_stop_button.dart';
@@ -11,7 +9,7 @@ import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
 
 class Map extends StatefulWidget {
 
-  Map({super.key});
+  const Map({super.key});
 
   @override
   State<Map> createState() => _MapState();
@@ -48,9 +46,10 @@ class _MapState extends State<Map> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Map"),
-      ),
+      // appBar: AppBar(
+      //   title: const Text("Map"),
+      // ),
+      backgroundColor: const Color(0xFF56358B),
         body: Stack(
           //mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -63,7 +62,7 @@ class _MapState extends State<Map> {
                 child: FlutterMap(
                   //mapController: MapController(),
                 options: MapOptions(
-                  initialCenter: LocationController.position,
+                  initialCenter: LatLng(LocationController.position!.latitude, LocationController.position!.longitude),
                   initialZoom: 13,
                   minZoom: 0,
                   maxZoom: 19,

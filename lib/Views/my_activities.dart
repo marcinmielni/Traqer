@@ -15,19 +15,18 @@ class _MyActivitiesState extends State<MyActivities> {
 
   final List<int> colorCodes = <int>[200, 100];
   late String directory;
-  List items = [];
+  List<FileSystemEntity> items = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _listofFiles();
   }
 
-  // Make New Function
   void _listofFiles() async {
     directory = (await getApplicationDocumentsDirectory()).path;
     setState(() {
-      items = Directory("$directory").listSync();  //use your folder name insted of resume.
+      items = Directory(directory).listSync();
+      items = items.where((i) => i.path.toString().endsWith('.gpx')).toList();
     });
   }
 
@@ -35,9 +34,10 @@ class _MyActivitiesState extends State<MyActivities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.greenAccent,
+      backgroundColor: const Color(0xFF56358B),
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: const Color(0xFF3F1C77),
+        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         title: const Text("My activities"),
       ),
       body: ListView.builder(
@@ -45,10 +45,18 @@ class _MyActivitiesState extends State<MyActivities> {
         itemBuilder: (BuildContext context,int index){
           return Container(
             height: 50,
-            color: Colors.green[colorCodes[index%2]],
-            child: Center(
-                child: Text('$index ${items[index]}')
-            )
+            color: Colors.purple[colorCodes[index%2]],
+            child: Align(
+              alignment: Alignment.centerLeft,
+                child: TextButton(
+                  style: TextButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                      child: Text('${index+1}. ${items[index].path.split('/').last}', textWidthBasis: TextWidthBasis.parent,),
+                  ),
+                  onPressed: () {  },
+                ),
+            ),
           );
         }
       ),
