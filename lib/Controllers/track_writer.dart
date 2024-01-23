@@ -17,6 +17,7 @@ class TrackWriter{
     gpx.metadata?.name = DateTime.now().toString();
     gpx.metadata?.desc = 'Training data';
     gpx.metadata?.time = DateTime.now();
+    //gpx.metadata?.extensions TODO: figure out if speed extension is needed
     gpx.trks = [];
     initSegment();
     initTrack();
