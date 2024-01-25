@@ -22,7 +22,7 @@ class _LiveDataState extends State<LiveData> {
     speed = (LocationController.position == null ? 0 : LocationController.position?.speed)!;
     timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
-        speed = LocationController.position!.speed;
+        speed = (LocationController.position!.speed) * 1.61;
       });
     });
     super.initState();
@@ -52,21 +52,14 @@ class _LiveDataState extends State<LiveData> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Meter('Speed', speed.toStringAsFixed(2), true),
+                  Meter('Speed', "${speed.toStringAsFixed(2)} km/h", true),
                 ],
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Meter('Speed', '15', false),
-                    Meter('Speed', '15', false),
-                  ],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Meter('Speed', '15', false),
-                    Meter('Speed', '15', false),
+                    Meter('Distance', '15', false),
+                    Meter('Time', '15', false),
                   ],
               ),
               Center(child: StartStopButton()),

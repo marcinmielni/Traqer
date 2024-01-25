@@ -40,7 +40,8 @@ class LocationController{
     LocationController.positionStreamSubscription = LocationController.positionStream.listen(
             (Position? _position) {
           print(position == null ? 'Unknown' : '${_position?.latitude.toString()}, ${_position?.longitude.toString()}');
-          TrackWriter.addTrackPoint(Wpt(lat: _position?.latitude,lon: _position?.longitude));
+          //TODO: think of what do, when device doesn't support elevation?
+          TrackWriter.addTrackPoint(Wpt(lat: _position?.latitude,lon: _position?.longitude, time: _position?.timestamp,extensions: {'speed': (_position==null ? '0.00' : _position.speed.toStringAsFixed(2))}, ele: _position?.altitude));
           LocationController.position = _position!;
         });
     //print("start");

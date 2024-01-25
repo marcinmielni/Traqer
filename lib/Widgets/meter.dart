@@ -8,10 +8,10 @@ import 'package:traqer/Controllers/location_controller.dart';
 class Meter extends StatefulWidget {
 
   final String name;
-  String value;
-  bool dynamic;
+  final String value;
+  final bool dynamic;
 
-  Meter(this.name, this.value, this.dynamic, {super.key});
+  const Meter(this.name, this.value, this.dynamic, {super.key});
 
   @override
   State<Meter> createState() => _MeterState();
@@ -29,11 +29,11 @@ class _MeterState extends State<Meter> {
   void initState(){
     super.initState();
     if(widget.dynamic) {
-      value = '0.00';
+      value = '0.00 km/h';
       positionStreamSubscription =
           LocationController.positionStream.listen((event) {
             setState(() {
-              value = event.speed.toStringAsFixed(2);
+              value = "${(event.speed * 1.61).toStringAsFixed(2)} km/h";
             });
             print('${event.longitude}, ${event.latitude}, ${event.speed}');
           });
