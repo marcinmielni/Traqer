@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import '../Controllers/location_controller.dart';
 import '../Widgets/start_stop_button.dart';
@@ -36,6 +37,7 @@ class _MapState extends State<Map> {
 
   @override
   void dispose() {
+    _turnHeadingUpStreamController.close();
     _followCurrentLocationStreamController.close();
     super.dispose();
   }
@@ -77,6 +79,10 @@ class _MapState extends State<Map> {
                   CurrentLocationLayer(
                     focalPoint: const FocalPoint(ratio: Point(0.0, 1.0), offset: Point(0.0, -60.0)),
                     //followScreenPointOffset: const Point(0.0, -60.0),
+                    // headingStream: LocationController.positionStream.map(
+                    //         (Position pos) => LocationMarkerHeading(
+                    //             heading: pos.heading,
+                    //             accuracy: pos.headingAccuracy)),
                     alignPositionStream: _followCurrentLocationStreamController.stream,
                     alignDirectionStream: _turnHeadingUpStreamController.stream,
                     alignPositionOnUpdate: _alignOnUpdate,
