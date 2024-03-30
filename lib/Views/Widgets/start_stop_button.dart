@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traqer/Controllers/location_controller.dart';
 
-import '../main.dart';
+import 'package:traqer/main.dart';
 
 class StartStopButton extends StatefulWidget {
 
