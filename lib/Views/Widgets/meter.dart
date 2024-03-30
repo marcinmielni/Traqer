@@ -33,9 +33,9 @@ class _MeterState extends State<Meter> {
       positionStreamSubscription =
           LocationController.positionStream.listen((event) {
             setState(() {
-              value = "${(event.speed * 1.61).toStringAsFixed(2)} km/h";
+              value = "${(event.speed * 3.6).toStringAsFixed(2)} km/h";
             });
-            print('${event.longitude}, ${event.latitude}, ${event.speed}');
+            print('from Widgets/meter: ${event.longitude}, ${event.latitude}, ${event.speed}, ${event.speedAccuracy}, ${event.heading}');
           });
     }else{
       positionStreamSubscription = null;

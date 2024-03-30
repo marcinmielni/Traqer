@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:traqer/Views/training_analysis.dart';
 
 
 class MyActivities extends StatefulWidget {
@@ -19,10 +20,10 @@ class _MyActivitiesState extends State<MyActivities> {
   @override
   void initState() {
     super.initState();
-    _listofFiles();
+    _listOfFiles();
   }
 
-  void _listofFiles() async {
+  void _listOfFiles() async {
     directory = (await getApplicationDocumentsDirectory()).path;
     setState(() {
       items = Directory(directory).listSync();
@@ -54,7 +55,14 @@ class _MyActivitiesState extends State<MyActivities> {
                     alignment: Alignment.centerLeft,
                       child: Text('${index+1}. ${items[index].path.split('/').last}', textWidthBasis: TextWidthBasis.parent,),
                   ),
-                  onPressed: () {  },
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) =>
+                          TrainingAnalysis(path: items[index].path),
+                        ),
+                    );
+                  },
                 ),
             ),
           );

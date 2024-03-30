@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:traqer/Controllers/location_controller.dart';
-import 'package:traqer/Widgets/meter.dart';
-import '../Widgets/start_stop_button.dart';
+import 'package:traqer/Views/Widgets/meter.dart';
+import '../Views/Widgets/start_stop_button.dart';
 
 class LiveData extends StatefulWidget {
 
@@ -19,7 +19,7 @@ class _LiveDataState extends State<LiveData> {
 
   @override
   void initState() {
-    speed = (LocationController.position == null ? 0 : LocationController.position?.speed)!;
+    speed = (LocationController.position == null ? -1 : LocationController.position?.speed)!;
     timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       setState(() {
         speed = (LocationController.position!.speed) * 1.61;
@@ -55,7 +55,7 @@ class _LiveDataState extends State<LiveData> {
                   Meter('Speed', "${speed.toStringAsFixed(2)} km/h", true),
                 ],
               ),
-              Row(
+              const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     Meter('Distance', '15', false),
