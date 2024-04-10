@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
+import 'package:gpx/gpx.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:traqer/Controllers/track_reader.dart';
+import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
 
 import '../Controllers/location_controller.dart';
+import '../Models/Decorators/track_decorator.dart';
 
 class TrainingAnalysis extends StatefulWidget {
 
@@ -18,8 +20,12 @@ class TrainingAnalysis extends StatefulWidget {
 }
 
 class _TrainingAnalysisState extends State<TrainingAnalysis> {
-
+  late Gpx gpx;
   late List<LatLng> points;
+
+  Future<Gpx> _getGpx() async {
+    return await TrackReader.read(widget.path);
+  }
 
   Future<List<LatLng>> _getPoints() async {
     return await TrackReader.getPoints(widget.path);
@@ -27,6 +33,9 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
 
   @override
   void initState(){
+    _getGpx().then((value) {
+      gpx = value;
+    });
     _getPoints().then((value) {
       setState(() {
         points = value;
@@ -92,8 +101,8 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
           ),
           Row(
             children: [
-              Meter('Distance', '23.2', false),
-              Meter('Time', '1:12:15', false),
+              Meter('Distance', TrackDecorator.getDistance(gpx).toStringAsFixed(3), false),
+              Meter('Time', TrackDecorator.getTime(gpx), false),
               Meter('Avg. Speed', '25.4 km/h', false),
             ]
           )
