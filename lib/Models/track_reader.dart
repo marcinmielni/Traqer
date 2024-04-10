@@ -4,7 +4,8 @@ import 'package:latlong2/latlong.dart';
 
 class TrackReader{
 
-  static Future<List<Wpt>> _read(String path) async {
+  //path =>gpx
+  static Future<Gpx> read(String path) async {
     //TODO: validate path
     File trackFile = File(path);
 
@@ -12,10 +13,14 @@ class TrackReader{
     String track = await trackFile.readAsString();
     print(track);
     Gpx gpx = GpxReader().fromString(await trackFile.readAsString());
+    return gpx;
+  }
+
+  static List<Wpt> gpxToWpt(Gpx gpx){
     return gpx.trks[0].trksegs[0].trkpts;
   }
 
-  //List of points (Lat, Long) is needed to draw Polyline object on the map wpts => (Lat, Lng)
+  //List<wpts> => List<(Lat, Lng)>
   static List<LatLng> _wptsToPoints(List<Wpt> wpts){
     List<LatLng> points = [];
     for (var element in wpts) {
@@ -24,8 +29,9 @@ class TrackReader{
     return points;
   }
 
+  //path => List<LatLng>
   static Future<List<LatLng>> getPoints(String path) async{
-    List<Wpt> wpts = await _read(path);
+    List<Wpt> wpts = gpxToWpt(await read(path));
     print(_wptsToPoints(wpts));
     return _wptsToPoints(wpts);
   }

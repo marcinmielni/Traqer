@@ -1,23 +1,24 @@
 import 'dart:async';
 import 'package:gpx/gpx.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:traqer/Controllers/track_writer.dart';
+import 'package:traqer/Models/track_writer.dart';
 
 
 
 class LocationController{
 
   static LocationSettings locationSettings = AndroidSettings(
-    forceLocationManager: true,
-    accuracy: LocationAccuracy.high,
-    foregroundNotificationConfig: const ForegroundNotificationConfig(
-        notificationTitle: 'Tracking',
-        notificationText: 'in progress',
-        //notificationIcon: AndroidResource(name: 'ic_launcher_foreground', defType: 'mipmap-hdpi'),
-        enableWakeLock: true,
-        setOngoing: true,
-    ),
-    intervalDuration: const Duration(seconds: 3)
+    forceLocationManager: false,
+    accuracy: LocationAccuracy.best,
+    // foregroundNotificationConfig: const ForegroundNotificationConfig(
+    //     notificationTitle: 'Tracking',
+    //     notificationText: 'in progress',
+    //     //notificationIcon: AndroidResource(name: 'ic_launcher_foreground', defType: 'mipmap-hdpi'),
+    //     enableWakeLock: true,
+    //     setOngoing: true,
+    // ),
+    //intervalDuration: const Duration(seconds: 3)
+    //distanceFilter:
   );
 
   static Position? position;
