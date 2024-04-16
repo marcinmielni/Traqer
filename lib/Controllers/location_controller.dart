@@ -8,17 +8,16 @@ import 'package:traqer/Models/track_writer.dart';
 class LocationController{
 
   static LocationSettings locationSettings = AndroidSettings(
-    forceLocationManager: false,
+    forceLocationManager: true,
     accuracy: LocationAccuracy.best,
-    // foregroundNotificationConfig: const ForegroundNotificationConfig(
-    //     notificationTitle: 'Tracking',
-    //     notificationText: 'in progress',
-    //     //notificationIcon: AndroidResource(name: 'ic_launcher_foreground', defType: 'mipmap-hdpi'),
-    //     enableWakeLock: true,
-    //     setOngoing: true,
-    // ),
-    //intervalDuration: const Duration(seconds: 3)
-    //distanceFilter:
+    foregroundNotificationConfig: const ForegroundNotificationConfig(
+        notificationTitle: 'Tracking',
+        notificationText: 'in progress',
+        //notificationIcon: AndroidResource(name: 'ic_launcher_foreground', defType: 'mipmap-hdpi'),
+        enableWakeLock: true,
+        setOngoing: true,
+    ),
+    intervalDuration: const Duration(seconds: 3)
   );
 
   static Position? position;

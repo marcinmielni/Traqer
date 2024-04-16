@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:gpx/gpx.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:path_provider/path_provider.dart';
 
 class TrackReader{
 
@@ -11,9 +12,16 @@ class TrackReader{
 
     //TODO: validate .gpx
     String track = await trackFile.readAsString();
-    print(track);
     Gpx gpx = GpxReader().fromString(await trackFile.readAsString());
     return gpx;
+  }
+
+  static Future<List<FileSystemEntity>> getGpxList() async {
+    String directory = (await getApplicationDocumentsDirectory()).path;
+    List<FileSystemEntity> items = [];
+    items = Directory(directory).listSync();
+    items = items.where((i) => i.path.toString().endsWith('.gpx')).toList();
+    return items;
   }
 
   static List<Wpt> gpxToWpt(Gpx gpx){
@@ -32,7 +40,7 @@ class TrackReader{
   //path => List<LatLng>
   static Future<List<LatLng>> getPoints(String path) async{
     List<Wpt> wpts = gpxToWpt(await read(path));
-    print(_wptsToPoints(wpts));
+      print(_wptsToPoints(wpts)); //TODO: remove before release
     return _wptsToPoints(wpts);
   }
 }

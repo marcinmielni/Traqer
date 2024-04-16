@@ -4,7 +4,6 @@ import 'package:gpx/gpx.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
-
 import '../Controllers/location_controller.dart';
 import '../Models/Decorators/track_decorator.dart';
 
@@ -102,7 +101,8 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
           Row(
             children: [
               Meter('Distance', TrackDecorator.getDistance(gpx).toStringAsFixed(3), false),
-              Meter('Time', TrackDecorator.getTime(gpx), false),
+              Meter('Time', TrackDecorator.getTime(gpx).toString(), false),
+              //'${duration.inHours.toString().padLeft(2, '0')}:${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
               Meter('Avg. Speed', '25.4 km/h', false),
             ]
           )
