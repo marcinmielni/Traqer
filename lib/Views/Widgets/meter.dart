@@ -49,12 +49,6 @@ class _MeterState extends State<Meter> {
     super.dispose();
   }
 
-  // @override
-  // void setState(VoidCallback fn) {
-  //   value = position.speed.toString();
-  //   super.setState(fn);
-  // }
-
 
   @override
   Widget build(BuildContext context) {

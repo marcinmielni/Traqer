@@ -1,6 +1,11 @@
+import 'dart:async';
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:traqer/Models/Decorators/track_decorator.dart';
+import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/menu.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
+import 'package:traqer/Views/training_live.dart';
 import 'live_data.dart';
 import 'map.dart';
 
@@ -12,6 +17,36 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 class _HomeState extends State<Home> {
+
+  late double sevenDaysDistance;
+  late Duration sevenDaysTime;
+
+  Future<double> _getSevenDaysDistance() async{
+    List<FileSystemEntity> items = await TrackReader.getGpxList();
+    return await TrackDecorator.getSevenDaysDistance(items);
+  }
+
+  Future<Duration> _getSevenDaysTime() async {
+    List<FileSystemEntity> items = await TrackReader.getGpxList();
+    return await TrackDecorator.getSevenDaysTime(items);
+  }
+
+  @override
+  void initState(){
+    _getSevenDaysDistance().then((value) {
+      //print(value); //TODO: remove
+      setState(() {
+        sevenDaysDistance = value;
+      });
+    });
+    _getSevenDaysTime().then((value) {
+      //print(value); //TODO: remove
+      setState(() {
+        sevenDaysTime = value;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,33 +70,13 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) =>
-                      DefaultTabController(
-                          length: 2,
-                          child: Scaffold(
-                            appBar: AppBar(
-                              backgroundColor: const Color(0xFF56358B),
-                              toolbarHeight: 0,
-                              automaticallyImplyLeading: false,
-                              bottom: const TabBar(
-                                indicatorColor: Colors.white,
-                                labelColor: Colors.white,
-                                unselectedLabelColor: Color(0xFF6C47A8),
-                                tabs: <Widget>[
-                                  Tab(text: 'Meters'),
-                                  Tab(text: 'Map'),
-                                ]
-                              )
-                            ),
-                            body: const TabBarView(
-                              children: [
-                                LiveData(),
-                                Map(),
-                              ],
-                            )
-                      ))
-                  ),
-                );
+                  MaterialPageRoute(builder: (context) => const TrainingLive()),
+                ).then((_) => setState(() {
+                  _getSevenDaysDistance().then((value) {
+                    print("sevenDaysDistance updated $value"); //TODO: remove
+                    sevenDaysDistance = value;
+                  });
+                }));
               },
             ),
               Container(height: 100),
@@ -70,9 +85,9 @@ class _HomeState extends State<Home> {
                 width: 350,
                 child: Column(
                   children: <Widget>[
-                    Meter("Time this week", '12', false),
+                    Meter("Time this week", sevenDaysTime.toString(), false),
                     Container(height: 60),
-                    Meter("KM this week", '124', false),
+                    Meter("KM this week", sevenDaysDistance.toStringAsFixed(3), false),
                   ]
                 ),
               )
