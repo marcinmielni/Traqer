@@ -54,7 +54,7 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
         title: const Text("Training Analysis"),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Container(
             height: 400,
@@ -98,14 +98,23 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
               ],
             ),
           ),
-          Row(
-            children: [
-              Meter('Distance', TrackDecorator.getDistance(gpx).toStringAsFixed(3), false),
-              Meter('Time', TrackDecorator.getTime(gpx).toString(), false),
-              //'${duration.inHours.toString().padLeft(2, '0')}:${duration.inMinutes.remainder(60).toString().padLeft(2, '0')}:${duration.inSeconds.remainder(60).toString().padLeft(2, '0')}'
-              Meter('Avg. Speed', '25.4 km/h', false),
-            ]
+          Center(
+            heightFactor: 1.7,
+            child:Column(
+                children: [
+                  Row(children: [Meter('Avg. Speed', '${(TrackDecorator.getDistance(gpx)/TrackDecorator.getTime(gpx).inSeconds * 3600).toStringAsFixed(2)} km/h', false)],),
+                  Row(
+                      children:[
+                        Meter('Distance', TrackDecorator.getDistance(gpx).toStringAsFixed(3), false),
+                        Meter('Time', '${TrackDecorator.getTime(gpx).inHours.toString().padLeft(2, '0')}:${TrackDecorator.getTime(gpx).inMinutes.remainder(60).toString().padLeft(2, '0')}:${TrackDecorator.getTime(gpx).inSeconds.remainder(60).toString().padLeft(2, '0')}', false),
+                        //
+                        ]
+                  ),
+
+                ]
+            )
           )
+
         ],
       )
     );

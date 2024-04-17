@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'Controllers/location_controller.dart';
 import 'Views/Home.dart';
 import 'permissions.dart';

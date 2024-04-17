@@ -17,11 +17,11 @@ class LocationController{
         enableWakeLock: true,
         setOngoing: true,
     ),
-    intervalDuration: const Duration(seconds: 3)
+    distanceFilter: 0,
   );
 
   static Position? position;
-  static Stream<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings).asBroadcastStream();
+  static Stream<Position> positionStream = Geolocator.getPositionStream(locationSettings: locationSettings);
 
   static StreamSubscription<Position>? positionStreamSubscription;
   // static StreamSubscription<Position>? gpxStreamSubscription;
@@ -41,8 +41,8 @@ class LocationController{
             (Position? _position) {
           print(position == null ? 'Unknown' : 'lat: ${_position?.latitude.toString()}, long: ${_position?.longitude.toString()},speed: ${_position?.speed} heading: ${_position?.heading}');
           //TODO: think of what do, when device doesn't support elevation?
-          TrackWriter.addTrackPoint(Wpt(lat: _position?.latitude,lon: _position?.longitude, time: _position?.timestamp,extensions: {'speed': (_position==null ? '0.00' : _position.speed.toStringAsFixed(2))}, ele: _position?.altitude));
-          LocationController.position = _position!;
+          TrackWriter.addTrackPoint(Wpt(lat: _position?.latitude,lon: _position?.longitude, time: _position?.timestamp, ele: _position?.altitude));
+          LocationController.position = _position;
         });
     //print("start");
   }

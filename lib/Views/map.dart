@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:traqer/Views/live_data.dart';
 import '../Controllers/location_controller.dart';
 import '../Views/Widgets/start_stop_button.dart';
 import 'package:flutter_map_location_marker/flutter_map_location_marker.dart';
@@ -46,11 +47,13 @@ class _MapState extends State<Map> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF56358B),
-        body: Stack(
+        body: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             SizedBox(
               width: double.infinity,
-              height: 530,
+              height: 400,
               child:
               Align(
                 alignment: Alignment.topCenter,
@@ -131,10 +134,9 @@ class _MapState extends State<Map> {
                 ],
               ),)
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              heightFactor: 7.3,
-              child: StartStopButton(),
+            Center(
+              heightFactor: 2.85,
+              child: StartStopButton(onPressed: () { },),
             )
           ],
         ),

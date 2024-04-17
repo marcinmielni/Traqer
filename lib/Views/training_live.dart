@@ -40,10 +40,10 @@ class _TrainingLiveState extends State<TrainingLive> {
                     ]
                 )
             ),
-            body: const TabBarView(
+            body: TabBarView(
               children: [
                 LiveData(),
-                Map(),
+                const Map(),
               ],
             )
         ));

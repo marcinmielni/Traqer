@@ -17,7 +17,6 @@ class TrackWriter{
     gpx.metadata?.name = DateTime.now().toString();
     gpx.metadata?.desc = 'Training data';
     gpx.metadata?.time = DateTime.now();
-    gpx.metadata?.extensions = {'speed': 'speed in km/h'};
     gpx.trks = [];
     initSegment();
     initTrack();

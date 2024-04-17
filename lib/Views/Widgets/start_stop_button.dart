@@ -5,9 +5,9 @@ import 'package:traqer/main.dart';
 
 class StartStopButton extends StatefulWidget {
 
-  //final VoidCallback onPressed;
+  final VoidCallback onPressed;
 
-  StartStopButton({super.key});
+  StartStopButton({super.key, required this.onPressed});
 
 
   @override
@@ -46,12 +46,14 @@ class _StartStopButtonState extends State<StartStopButton> {
         onPressed: () {
           setState(() {
             index = (index + 1) % customizations.length;
+            widget.onPressed.call();
           });
           if(LocationController.positionStreamSubscription == null ){
             LocationController.startTracking();
           }else{
             LocationController.stopTracking();
           }
+
         },
         backgroundColor: customizations[index].$1,
         child: customizations[index].$2,

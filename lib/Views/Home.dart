@@ -34,13 +34,11 @@ class _HomeState extends State<Home> {
   @override
   void initState(){
     _getSevenDaysDistance().then((value) {
-      //print(value); //TODO: remove
       setState(() {
         sevenDaysDistance = value;
       });
     });
     _getSevenDaysTime().then((value) {
-      //print(value); //TODO: remove
       setState(() {
         sevenDaysTime = value;
       });
@@ -70,22 +68,31 @@ class _HomeState extends State<Home> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const TrainingLive()),
-                ).then((_) => setState(() {
+                  MaterialPageRoute(
+                      builder: (context) => const TrainingLive()
+                  ),
+                ).then((_) {
                   _getSevenDaysDistance().then((value) {
-                    print("sevenDaysDistance updated $value"); //TODO: remove
-                    sevenDaysDistance = value;
+                    setState(() {
+                      sevenDaysDistance = value;
+                    });
                   });
-                }));
+                  _getSevenDaysTime().then((value){
+                    setState(() {
+                      sevenDaysTime = value;
+                    });
+                  }
+                  );
+                });
               },
             ),
-              Container(height: 100),
+              Container(height: 50),
               SizedBox(
-                height: 300,
+                height: 250,
                 width: 350,
                 child: Column(
                   children: <Widget>[
-                    Meter("Time this week", sevenDaysTime.toString(), false),
+                    Meter("Time this week", "${sevenDaysTime.inHours.toString().padLeft(2, '0')}:${(sevenDaysTime.inMinutes%60).toString().padLeft(2, '0')}:${(sevenDaysTime.inSeconds%60).toString().padLeft(2, '0')}", false),
                     Container(height: 60),
                     Meter("KM this week", sevenDaysDistance.toStringAsFixed(3), false),
                   ]
