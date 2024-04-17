@@ -13,6 +13,9 @@ class TrackDecorator{
   static Duration getTime(Gpx gpx){
     DateTime? last = gpx.trks[0].trksegs[0].trkpts.last.time ?? DateTime(0);
     DateTime? first = gpx.trks[0].trksegs[0].trkpts[0].time ?? DateTime(0);
+    if(first == null || last == null) {
+      return const Duration(seconds: 0);
+    }
     Duration duration = last.difference(first);
     //output format HH:MM:SS
     
@@ -24,12 +27,12 @@ class TrackDecorator{
     for (int i=0; i < gpx.trks[0].trksegs[0].trkpts.length - 1; i++) {
       LatLng x = LatLng(gpx.trks[0].trksegs[0].trkpts[i].lat!, gpx.trks[0].trksegs[0].trkpts[i].lon!);
       LatLng y = LatLng(gpx.trks[0].trksegs[0].trkpts[i+1].lat!, gpx.trks[0].trksegs[0].trkpts[i+1].lon!);
-      distance += _haversine(x, y);
+      distance += haversine(x, y);
     }
     return distance;
   }
 
-  static double _haversine(LatLng x, LatLng y){
+  static double haversine(LatLng x, LatLng y){
     double dLat = (y.latitude - x.latitude) * pi/180.0;
     double dLon = (y.longitude - x.longitude) * pi/180.0;
 
@@ -48,7 +51,7 @@ class TrackDecorator{
 
   static Future<double> getSevenDaysDistance(List<FileSystemEntity> items) async {
     items = items.where((i) =>
-        DateTime.now().difference(i.statSync().modified) < const Duration(days: 7)
+        DateTime.now().difference(i.statSync().changed) < const Duration(days: 7)
     ).toList();
     double distance = 0.0;
     for (var element in items) {

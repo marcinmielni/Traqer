@@ -7,11 +7,11 @@ import 'package:traqer/Controllers/location_controller.dart';
 
 class Meter extends StatefulWidget {
 
-  final String name;
-  final String value;
-  final bool dynamic;
+  String name;
+  String value;
+  bool dynamic;
 
-  const Meter(this.name, this.value, this.dynamic, {super.key});
+  Meter(this.name, this.value, this.dynamic, {super.key});
 
   @override
   State<Meter> createState() => _MeterState();
@@ -24,28 +24,29 @@ class _MeterState extends State<Meter> {
   late StreamSubscription<Position>? positionStreamSubscription;
 
 
-
   @override
   void initState(){
     super.initState();
-    if(widget.dynamic) {
-      value = '0.00 km/h';
-      positionStreamSubscription =
-          LocationController.positionStream.listen((event) {
-            setState(() {
-              value = "${(event.speed * 3.6).toStringAsFixed(2)} km/h";
-            });
-            print('from Widgets/meter: ${event.longitude}, ${event.latitude}, ${event.speed}, ${event.speedAccuracy}, ${event.heading}');
-          });
-    }else{
-      positionStreamSubscription = null;
-      value = widget.value;
+  }
+
+  // @override
+  // void setState(VoidCallback fn) {
+  //   value = position.speed.toString();
+  //   super.setState(fn);
+  // }
+
+  @override
+  void didUpdateWidget(covariant Meter oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didWidgetUpdate");
+    if(oldWidget.value != widget.value){
+      print("The old widget with counter: ${oldWidget.value}  was replaced with new widget with counter: ${widget.value}");
     }
   }
 
+
   @override
   void dispose(){
-    positionStreamSubscription?.cancel();
     super.dispose();
   }
 
@@ -66,7 +67,7 @@ class _MeterState extends State<Meter> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
           Text(widget.name, style: const TextStyle(fontSize: 22)),
-          Text(value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+          Text(widget.value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
         ]
       ),
     ),

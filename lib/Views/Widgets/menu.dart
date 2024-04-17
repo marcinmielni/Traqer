@@ -19,8 +19,8 @@ class _MenuState extends State<Menu> {
   Widget build(BuildContext context) {
     return SpeedDial(
       backgroundColor: const Color(0xFFD9D9D9),
-      buttonSize: const Size(80,80),
-      childrenButtonSize: const Size(80, 80),
+      buttonSize: const Size(60,60),
+      childrenButtonSize: const Size(60, 60),
       animatedIcon: AnimatedIcons.menu_close,
       children: [
         SpeedDialChild(
