@@ -4,11 +4,11 @@ import 'dart:math';
 import 'package:gpx/gpx.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:path_provider/path_provider.dart';
-import '../track_reader.dart';
+import '../Models/track_reader.dart';
 
-class TrackDecorator{
+class TrackUtils{
 
-  TrackDecorator();
+  TrackUtils();
 
   static Duration getTime(Gpx gpx){
     DateTime? last = gpx.trks[0].trksegs[0].trkpts.last.time ?? DateTime(0);

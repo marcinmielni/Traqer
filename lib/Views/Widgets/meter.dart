@@ -38,7 +38,7 @@ class _MeterState extends State<Meter> {
   @override
   void didUpdateWidget(covariant Meter oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print("didWidgetUpdate");
+    print("didMeterUpdate");
     if(oldWidget.value != widget.value){
       print("The old widget with counter: ${oldWidget.value}  was replaced with new widget with counter: ${widget.value}");
     }
@@ -57,17 +57,17 @@ class _MeterState extends State<Meter> {
       child : Container(
         margin: const EdgeInsets.all(5),
         padding: const EdgeInsets.all(5),
-        decoration: const BoxDecoration(
-            borderRadius: BorderRadius.all(Radius.circular(25)),
-            color: Color(0xFFD9D9D9),
+        decoration: BoxDecoration(
+            borderRadius: const BorderRadius.all(Radius.circular(25)),
+            color: Theme.of(context).colorScheme.surface,
         ),
         width: double.infinity,
         // constraints: BoxConstraints.expand(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-          Text(widget.name, style: const TextStyle(fontSize: 22)),
-          Text(widget.value, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),)
+          Text(widget.name, style: Theme.of(context).textTheme.bodyLarge),
+          Text(widget.value, style: Theme.of(context).textTheme.bodyMedium),
         ]
       ),
     ),

@@ -4,6 +4,8 @@ import 'package:traqer/Views/my_activities.dart';
 import 'package:traqer/Views/training_analysis.dart';
 import 'package:traqer/Views/about.dart';
 
+import '../settings.dart';
+
 
 
 class Menu extends StatefulWidget {
@@ -18,16 +20,26 @@ class _MenuState extends State<Menu> {
   @override
   Widget build(BuildContext context) {
     return SpeedDial(
-      backgroundColor: const Color(0xFFD9D9D9),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
       buttonSize: const Size(60,60),
       childrenButtonSize: const Size(60, 60),
       animatedIcon: AnimatedIcons.menu_close,
       children: [
         SpeedDialChild(
+          labelStyle: Theme.of(context).textTheme.bodySmall,
           child: const Icon(Icons.settings),
           label: "Settings",
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) =>
+                    const Settings()
+                )
+            );
+          }
         ),
         SpeedDialChild(
+            labelStyle: Theme.of(context).textTheme.bodySmall,
           child: const Icon(Icons.book),
           label: "My activities",
             onTap: () {
@@ -39,6 +51,7 @@ class _MenuState extends State<Menu> {
             }
         ),
         SpeedDialChild(
+            labelStyle: Theme.of(context).textTheme.bodySmall,
           child: const Icon(Icons.abc),
           label: "About...",
           onTap: () {

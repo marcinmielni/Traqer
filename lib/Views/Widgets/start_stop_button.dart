@@ -26,8 +26,8 @@ class _StartStopButtonState extends State<StartStopButton> {
 
   static const List<(Color? background, Widget?)> customizations =
   <(Color?, Widget?)>[
-    (Colors.green, Icon(Icons.play_arrow)),
-    (Colors.red, Icon(Icons.pause)),
+    (Colors.green, Icon(Icons.play_arrow, color: Colors.black)),
+    (Colors.red, Icon(Icons.pause, color: Colors.black,)),
   ];
   static int index = 0;
 

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:traqer/Controllers/location_controller.dart';
-import 'package:traqer/Models/Decorators/track_decorator.dart';
+import 'package:traqer/Utils/track_utils.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
 import '../Views/Widgets/start_stop_button.dart';
 
@@ -33,7 +33,7 @@ class _LiveDataState extends State<LiveData> with AutomaticKeepAliveClientMixin<
       setState(() {
         previousPosition = currentPosition;
         currentPosition = position;
-        distance += TrackDecorator.haversine(LatLng(previousPosition!.latitude, previousPosition!.longitude), LatLng(currentPosition!.latitude, currentPosition!.longitude));
+        distance += TrackUtils.haversine(LatLng(previousPosition!.latitude, previousPosition!.longitude), LatLng(currentPosition!.latitude, currentPosition!.longitude));
       });
     });
     timer = Timer.periodic(const Duration(seconds: 1), (timer) {
@@ -88,7 +88,7 @@ class _LiveDataState extends State<LiveData> with AutomaticKeepAliveClientMixin<
         // appBar: AppBar(
         //   title: const Text("Training"),
         // ),
-        backgroundColor: const Color(0xFF56358B),
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SizedBox(
           height: double.infinity,
           width: double.infinity,

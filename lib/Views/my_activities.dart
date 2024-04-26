@@ -14,7 +14,7 @@ class MyActivities extends StatefulWidget {
 
 class _MyActivitiesState extends State<MyActivities> {
 
-  final List<int> colorCodes = <int>[200, 100];
+  final List<double> colorOpacity = <double>[0.125, 0.25];
   late String directory;
   List<FileSystemEntity> items = [];
   @override
@@ -35,10 +35,10 @@ class _MyActivitiesState extends State<MyActivities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF56358B),
+      // backgroundColor: const Color(0xFF56358B),
       appBar: AppBar(
-        backgroundColor: const Color(0xFF3F1C77),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
+        // backgroundColor: const Color(0xFF3F1C77),
+        // titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         title: const Text("My activities"),
       ),
       body: ListView.builder(
@@ -46,14 +46,14 @@ class _MyActivitiesState extends State<MyActivities> {
         itemBuilder: (BuildContext context,int index){
           return Container(
             height: 50,
-            color: Colors.purple[colorCodes[index%2]],
+            color: Theme.of(context).primaryColor.withOpacity(colorOpacity[index%2]),
             child: Align(
               alignment: Alignment.centerLeft,
                 child: TextButton(
                   style: TextButton.styleFrom(minimumSize: const Size(double.infinity, 50)),
                   child: Align(
                     alignment: Alignment.centerLeft,
-                      child: Text('${index+1}. ${items[index].path.split('/').last}', textWidthBasis: TextWidthBasis.parent,),
+                      child: Text('${index+1}. ${items[index].path.split('/').last}', textWidthBasis: TextWidthBasis.parent, style: Theme.of(context).textTheme.bodySmall),
                   ),
                   onPressed: () {
                     Navigator.push(

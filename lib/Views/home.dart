@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:traqer/Models/Decorators/track_decorator.dart';
+import 'package:traqer/Utils/track_utils.dart';
 import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/menu.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
@@ -23,12 +23,12 @@ class _HomeState extends State<Home> {
 
   Future<double> _getSevenDaysDistance() async{
     List<FileSystemEntity> items = await TrackReader.getGpxList();
-    return await TrackDecorator.getSevenDaysDistance(items);
+    return await TrackUtils.getSevenDaysDistance(items);
   }
 
   Future<Duration> _getSevenDaysTime() async {
     List<FileSystemEntity> items = await TrackReader.getGpxList();
-    return await TrackDecorator.getSevenDaysTime(items);
+    return await TrackUtils.getSevenDaysTime(items);
   }
 
   @override
@@ -50,7 +50,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return
       Scaffold(
-        backgroundColor: const Color(0xFF56358B),
+        backgroundColor: Theme.of(context).colorScheme.background,
         floatingActionButton: const Menu(),
         body: Column(
             mainAxisSize: MainAxisSize.max,
@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
             ElevatedButton(
-              style: ElevatedButton.styleFrom(elevation: 0, backgroundColor: const Color(0xFF56358B)),
+              style: ElevatedButton.styleFrom(elevation: 0, backgroundColor: Colors.white.withOpacity(0.0)),
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[

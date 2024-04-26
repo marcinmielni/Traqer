@@ -26,15 +26,15 @@ class _TrainingLiveState extends State<TrainingLive> {
     return DefaultTabController(
         length: 2,
         child: Scaffold(
+            backgroundColor: Theme.of(context).backgroundColor,
             appBar: AppBar(
-                backgroundColor: const Color(0xFF56358B),
                 toolbarHeight: 0,
                 automaticallyImplyLeading: false,
-                bottom: const TabBar(
-                    indicatorColor: Colors.white,
-                    labelColor: Colors.white,
-                    unselectedLabelColor: Color(0xFF6C47A8),
-                    tabs: <Widget>[
+                bottom: TabBar(
+                    indicatorColor: Theme.of(context).indicatorColor,
+                    labelColor: Theme.of(context).indicatorColor,
+                    unselectedLabelColor: Theme.of(context).primaryColor.withOpacity(0.5),
+                    tabs: const <Widget>[
                       Tab(text: 'Meters'),
                       Tab(text: 'Map'),
                     ]

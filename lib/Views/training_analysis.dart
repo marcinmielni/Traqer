@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:gpx/gpx.dart';
 import 'package:latlong2/latlong.dart';
+import 'package:provider/provider.dart';
 import 'package:traqer/Models/track_reader.dart';
+import 'package:traqer/Utils/Theme/theme.dart';
+import 'package:traqer/Utils/Theme/theme_provider.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
-import '../Controllers/location_controller.dart';
-import '../Models/Decorators/track_decorator.dart';
+import '../Utils/track_utils.dart';
 
 class TrainingAnalysis extends StatefulWidget {
 
@@ -30,6 +32,28 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
     return await TrackReader.getPoints(widget.path);
   }
 
+  Widget _tileBuilder(BuildContext context, Widget tileWidget, TileImage tile) {
+    ColorFiltered dark = ColorFiltered(
+      colorFilter: const ColorFilter.matrix(<double>[
+        -0.2126, -0.7152, -0.0722, 0, 255, // Red channel
+        -0.2126, -0.7152, -0.0722, 0, 255, // Green channel
+        -0.2126, -0.7152, -0.0722, 0, 255, // Blue channel
+        0,       0,       0,       1, 0,   // Alpha channel
+      ]),
+      child: tileWidget,
+    );
+    ColorFiltered light = ColorFiltered(
+      colorFilter: const ColorFilter.matrix(<double>[
+        1, 0, 0, 0, 0, // Red channel
+        0, 1, 0, 0, 0, // Green channel
+        0, 0, 1, 0, 0, // Blue channel
+        0, 0, 0, 1, 0,   // Alpha channel
+      ]),
+      child: tileWidget,
+    );
+    return Provider.of<ThemeProvider>(context).themeData == lightMode ? light : dark;
+  }
+
   @override
   void initState(){
     _getGpx().then((value) {
@@ -48,16 +72,12 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
     return Scaffold(
       backgroundColor: const Color(0xFF56358B),
       appBar: AppBar(
-        //automaticallyImplyLeading: false,
-        backgroundColor: const Color(0xFF3F1C77),
-        titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         title: const Text("Training Analysis"),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: Stack(
         children: [
           Container(
-            height: 400,
+            //height: 400,
             //width: 400,
             color: Colors.redAccent,
             child: FlutterMap(
@@ -70,6 +90,7 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
               children: [
                 TileLayer(
                   urlTemplate: 'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                  tileBuilder: _tileBuilder,
                   userAgentPackageName: 'uk.mielnicz.Traqer',
                   maxZoom: 19,
                 ),
@@ -98,15 +119,18 @@ class _TrainingAnalysisState extends State<TrainingAnalysis> {
               ],
             ),
           ),
-          Center(
-            heightFactor: 1.7,
+          Align(
+            alignment: Alignment.bottomCenter,
+            heightFactor: 5,
             child:Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  Row(children: [Meter('Avg. Speed', '${(TrackDecorator.getDistance(gpx)/TrackDecorator.getTime(gpx).inSeconds * 3600).toStringAsFixed(2)} km/h', false)],),
+                  Row(
+                    children: [Meter('Avg. Speed', '${(TrackUtils.getDistance(gpx)/TrackUtils.getTime(gpx).inSeconds * 3600).toStringAsFixed(2)} km/h', false)],),
                   Row(
                       children:[
-                        Meter('Distance', TrackDecorator.getDistance(gpx).toStringAsFixed(3), false),
-                        Meter('Time', '${TrackDecorator.getTime(gpx).inHours.toString().padLeft(2, '0')}:${TrackDecorator.getTime(gpx).inMinutes.remainder(60).toString().padLeft(2, '0')}:${TrackDecorator.getTime(gpx).inSeconds.remainder(60).toString().padLeft(2, '0')}', false),
+                        Meter('Distance', TrackUtils.getDistance(gpx).toStringAsFixed(3), false),
+                        Meter('Time', '${TrackUtils.getTime(gpx).inHours.toString().padLeft(2, '0')}:${TrackUtils.getTime(gpx).inMinutes.remainder(60).toString().padLeft(2, '0')}:${TrackUtils.getTime(gpx).inSeconds.remainder(60).toString().padLeft(2, '0')}', false),
                         //
                         ]
                   ),

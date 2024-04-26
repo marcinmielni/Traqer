@@ -43,6 +43,7 @@ dependencies:
   location: ^5.0.0
   cupertino_icons: ^1.0.2
   flutter_map_location_marker: ^8.0.4
+  provider: ^6.1.2
 
 dev_dependencies:
   flutter_test:
