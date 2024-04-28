@@ -160,7 +160,7 @@ class _MapState extends State<Map> {
             ),
             Align(
               alignment: Alignment.bottomCenter,
-              heightFactor: 7.1,
+              heightFactor: 6.1,
               child: StartStopButton(onPressed: () { },),
             )
           ],

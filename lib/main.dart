@@ -33,6 +33,7 @@ class _TraqerState extends State<Traqer> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Traqer',
       themeMode: Settings.mode,
       theme: Provider.of<ThemeProvider>(context).themeData,
