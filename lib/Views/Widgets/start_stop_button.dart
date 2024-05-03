@@ -7,19 +7,11 @@ class StartStopButton extends StatefulWidget {
 
   final VoidCallback onPressed;
 
-  StartStopButton({super.key, required this.onPressed});
+  const StartStopButton({super.key, required this.onPressed});
 
 
   @override
   State<StartStopButton> createState() => _StartStopButtonState();
-
-
-
-  // StreamSubscription<Position>? get positionStreamSubscription => _positionStreamSubscription;
-  // set positionStreamSubscription(StreamSubscription<Position>? streamSubscription){
-  //   _positionStreamSubscription = streamSubscription;
-  // }
-
 }
 
 class _StartStopButtonState extends State<StartStopButton> {
@@ -29,16 +21,8 @@ class _StartStopButtonState extends State<StartStopButton> {
     (Colors.green, Icon(Icons.play_arrow, color: Colors.black)),
     (Colors.red, Icon(Icons.pause, color: Colors.black,)),
   ];
+
   static int index = 0;
-
-  // late Function onPressed;
-  /*
-  Geolocator.getPositionStream(locationSettings: locationSettings).listen(
-          (Position? position) {
-        print(position == null ? 'Unknown' : '${position.latitude.toString()}, ${position.longitude.toString()}');
-      });
-
-   */
 
   @override
   Widget build(BuildContext context) {

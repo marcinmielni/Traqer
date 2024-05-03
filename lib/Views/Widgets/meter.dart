@@ -1,9 +1,7 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:traqer/Controllers/location_controller.dart';
+
 
 class Meter extends StatefulWidget {
 
@@ -23,33 +21,20 @@ class _MeterState extends State<Meter> {
   late Position position;
   late StreamSubscription<Position>? positionStreamSubscription;
 
-
   @override
   void initState(){
     super.initState();
   }
 
-  // @override
-  // void setState(VoidCallback fn) {
-  //   value = position.speed.toString();
-  //   super.setState(fn);
-  // }
-
   @override
   void didUpdateWidget(covariant Meter oldWidget) {
     super.didUpdateWidget(oldWidget);
-    print("didMeterUpdate");
-    if(oldWidget.value != widget.value){
-      print("The old widget with counter: ${oldWidget.value}  was replaced with new widget with counter: ${widget.value}");
-    }
   }
-
 
   @override
   void dispose(){
     super.dispose();
   }
-
 
   @override
   Widget build(BuildContext context) {

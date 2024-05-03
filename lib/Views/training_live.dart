@@ -17,7 +17,6 @@ class _TrainingLiveState extends State<TrainingLive> {
   @override
   void dispose(){
     super.dispose();
-    print("Training live closed"); //TODO: remove
     Navigator.pop(context);
   }
 
@@ -40,10 +39,10 @@ class _TrainingLiveState extends State<TrainingLive> {
                     ]
                 )
             ),
-            body: TabBarView(
+            body: const TabBarView(
               children: [
                 LiveData(),
-                const Map(),
+                Map(),
               ],
             )
         ));

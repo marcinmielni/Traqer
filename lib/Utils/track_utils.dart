@@ -17,8 +17,6 @@ class TrackUtils{
       return const Duration(seconds: 0);
     }
     Duration duration = last.difference(first);
-    //output format HH:MM:SS
-    
     return duration;
   }
   
@@ -36,11 +34,9 @@ class TrackUtils{
     double dLat = (y.latitude - x.latitude) * pi/180.0;
     double dLon = (y.longitude - x.longitude) * pi/180.0;
 
-    // convert to radians
     double lat1 = (x.latitude) * pi / 180.0;
     double lat2= (y.latitude) * pi / 180.0;
 
-    // apply formulae
     double a = pow(sin(dLat / 2), 2) +
         pow(sin(dLon / 2), 2) *
             cos(lat1) * cos(lat2);

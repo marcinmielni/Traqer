@@ -17,20 +17,16 @@ class Settings extends StatefulWidget {
 }
 class _SettingsState extends State<Settings> {
 
-  //var darkMode = false;
-  var gpsAccuracy = 1;
+   int gpsAccuracy = 0;
 
 
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        // titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         title: const Text("Settings"),
       ),
-        // backgroundColor: const Color(0xFF56358B),
         body: Column(
-          //mainAxisAlignment: MainAxisAlignment.spaceAround,
           children:[
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -56,13 +52,15 @@ class _SettingsState extends State<Settings> {
                 DropdownButton(
                     value: gpsAccuracy,
                     items: const [
-                      DropdownMenuItem(value: 1,child: Text("1"),),
-                      DropdownMenuItem(value: 5, child: Text("5")),
-                      DropdownMenuItem(value: 15, child: Text("15")),
+                      DropdownMenuItem(value: 0,child: Text("0 m"),),
+                      DropdownMenuItem(value: 5, child: Text("5 m"),),
+                      DropdownMenuItem(value: 25, child: Text("25 m")),
+                      DropdownMenuItem(value: 100, child: Text("100m")),
                     ],
                     onChanged: (int? value) {
                       setState(() {
                         gpsAccuracy = value!;
+                        Settings.locationAccuracy = value!;
                       });
                     }
                 ),

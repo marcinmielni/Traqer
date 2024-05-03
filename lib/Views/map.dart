@@ -2,10 +2,8 @@ import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:provider/provider.dart';
-import 'package:traqer/Views/live_data.dart';
 import '../Controllers/location_controller.dart';
 import '../Utils/Theme/theme.dart';
 import '../Utils/Theme/theme_provider.dart';
@@ -32,19 +30,19 @@ class _MapState extends State<Map> {
   Widget _tileBuilder(BuildContext context, Widget tileWidget, TileImage tile) {
     ColorFiltered dark = ColorFiltered(
       colorFilter: const ColorFilter.matrix(<double>[
-        -0.2126, -0.7152, -0.0722, 0, 255, // Red channel
-        -0.2126, -0.7152, -0.0722, 0, 255, // Green channel
-        -0.2126, -0.7152, -0.0722, 0, 255, // Blue channel
-        0,       0,       0,       1, 0,   // Alpha channel
+        -0.2126, -0.7152, -0.0722, 0, 255,
+        -0.2126, -0.7152, -0.0722, 0, 255,
+        -0.2126, -0.7152, -0.0722, 0, 255,
+        0,       0,       0,       1, 0,
       ]),
       child: tileWidget,
     );
     ColorFiltered light = ColorFiltered(
       colorFilter: const ColorFilter.matrix(<double>[
-        1, 0, 0, 0, 0, // Red channel
-        0, 1, 0, 0, 0, // Green channel
-        0, 0, 1, 0, 0, // Blue channel
-        0, 0, 0, 1, 0,   // Alpha channel
+        1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0,
       ]),
       child: tileWidget,
     );
@@ -105,11 +103,6 @@ class _MapState extends State<Map> {
                   ),
                   CurrentLocationLayer(
                     focalPoint: const FocalPoint(ratio: Point(0.0, 1.0), offset: Point(0.0, -60.0)),
-                    //followScreenPointOffset: const Point(0.0, -60.0),
-                    // headingStream: LocationController.positionStream.map(
-                    //         (Position pos) => LocationMarkerHeading(
-                    //             heading: pos.heading,
-                    //             accuracy: pos.headingAccuracy)),
                     alignPositionStream: _followCurrentLocationStreamController.stream,
                     alignDirectionStream: _turnHeadingUpStreamController.stream,
                     alignPositionOnUpdate: _alignOnUpdate,
@@ -176,7 +169,6 @@ class _MapState extends State<Map> {
     });
   }
 
-  // Enable follow and turn again when user end manipulation.
   void _onPointerUp(e, l) {
     if (--_pointerCount == 0 && _navigationMode) {
       setState(() {

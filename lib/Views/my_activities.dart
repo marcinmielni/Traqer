@@ -6,7 +6,7 @@ import 'package:traqer/Views/training_analysis.dart';
 
 class MyActivities extends StatefulWidget {
 
-  MyActivities({super.key});
+  const MyActivities({super.key});
 
   @override
   State<MyActivities> createState() => _MyActivitiesState();
@@ -35,10 +35,7 @@ class _MyActivitiesState extends State<MyActivities> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // backgroundColor: const Color(0xFF56358B),
       appBar: AppBar(
-        // backgroundColor: const Color(0xFF3F1C77),
-        // titleTextStyle: const TextStyle(color: Colors.white, fontSize: 20),
         title: const Text("My activities"),
       ),
       body: ListView.builder(

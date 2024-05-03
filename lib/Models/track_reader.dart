@@ -5,12 +5,10 @@ import 'package:path_provider/path_provider.dart';
 
 class TrackReader{
 
-  //path =>gpx
   static Future<Gpx> read(String path) async {
-    //TODO: validate path
+
     File trackFile = File(path);
 
-    //TODO: validate .gpx
     String track = await trackFile.readAsString();
     Gpx gpx = GpxReader().fromString(await trackFile.readAsString());
     return gpx;
@@ -28,7 +26,6 @@ class TrackReader{
     return gpx.trks[0].trksegs[0].trkpts;
   }
 
-  //List<wpts> => List<(Lat, Lng)>
   static List<LatLng> _wptsToPoints(List<Wpt> wpts){
     List<LatLng> points = [];
     for (var element in wpts) {
@@ -37,10 +34,8 @@ class TrackReader{
     return points;
   }
 
-  //path => List<LatLng>
   static Future<List<LatLng>> getPoints(String path) async{
     List<Wpt> wpts = gpxToWpt(await read(path));
-      print(_wptsToPoints(wpts)); //TODO: remove before release
     return _wptsToPoints(wpts);
   }
 }

@@ -8,9 +8,7 @@ class Permissions {
 
     bool serviceEnabled;
     ph.PermissionStatus permissionStatus;
-    //LocationData locationData;
 
-    //Request location service to be enabled, closes app otherwise
     serviceEnabled = await location.serviceEnabled();
     if (!serviceEnabled) {
       serviceEnabled = await location.requestService();
@@ -23,12 +21,10 @@ class Permissions {
     if(permissionStatus.isGranted){
       permissionStatus = await ph.Permission.locationAlways.request();
       if(!permissionStatus.isGranted) {
-        print('permissions denid');
       }
     }else{
       exit(0);
     }
-    //locationData = await location.getLocation();
-    return true; //TODO: remove
+    return true;
   }
 }

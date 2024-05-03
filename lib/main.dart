@@ -22,8 +22,6 @@ class Traqer extends StatefulWidget {
 
   const Traqer({Key? key}) : super(key: key);
 
-  //ThemeMode mode = Settings.mode;
-  
   @override
   State<Traqer> createState() => _TraqerState();
 }

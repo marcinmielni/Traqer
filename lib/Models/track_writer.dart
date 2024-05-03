@@ -24,7 +24,6 @@ class TrackWriter{
 
   static Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
-    print(directory.path);
     return directory.path;
   }
 
@@ -40,20 +39,16 @@ class TrackWriter{
     currentSeg.trkpts.add(trkPoint);
   }
 
-
   static Future<void> saveGpx() async {
     currentTrack.trksegs.add(currentSeg);
     gpx.trks.add(currentTrack);
 
     String path = await _localPath;
-    print("got local path $path");
 
     File gpxFile = File('$path/${gpx.metadata?.name}.gpx');
-    print("created file $path/${gpx.metadata?.name}.gpx");
 
     String gpxString = GpxWriter().asString(gpx, pretty: true);
     gpxFile.writeAsString(gpxString);
-    print('gpx saved');
   }
 
 }

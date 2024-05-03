@@ -6,8 +6,7 @@ import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/menu.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
 import 'package:traqer/Views/training_live.dart';
-import 'live_data.dart';
-import 'map.dart';
+
 
 class Home extends StatefulWidget {
 

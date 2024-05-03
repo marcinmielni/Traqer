@@ -9,7 +9,7 @@ import '../Views/Widgets/start_stop_button.dart';
 
 class LiveData extends StatefulWidget {
 
-  LiveData({Key? key})
+  const LiveData({Key? key})
       : super(key: key);
 
   @override
@@ -66,13 +66,7 @@ class _LiveDataState extends State<LiveData> with AutomaticKeepAliveClientMixin<
       setState(() {
         speed = position.speed * 3.6;
       });
-      print(position.speed);
     });
-    // timer = Timer.periodic(const Duration(milliseconds: 100), (timer) {
-    //   setState(() {
-    //     speed = (LocationController.position!.speed) * 1.61;
-    //   });
-    // });
   }
 
   @override
@@ -85,9 +79,6 @@ class _LiveDataState extends State<LiveData> with AutomaticKeepAliveClientMixin<
   Widget build(BuildContext context){
     super.build(context);
     return Scaffold(
-        // appBar: AppBar(
-        //   title: const Text("Training"),
-        // ),
         backgroundColor: Theme.of(context).backgroundColor,
         body: SizedBox(
           height: double.infinity,
@@ -114,10 +105,8 @@ class _LiveDataState extends State<LiveData> with AutomaticKeepAliveClientMixin<
                   child: StartStopButton(onPressed: () {
                     if(streamSubscription == null){
                       start();
-                      print("Distance started");
                     }else{
                       stop();
-                      print("Distance stopped");
                     }
               },)),
             ],

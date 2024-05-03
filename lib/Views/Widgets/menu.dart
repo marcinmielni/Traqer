@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:traqer/Views/my_activities.dart';
-import 'package:traqer/Views/training_analysis.dart';
 import 'package:traqer/Views/about.dart';
-
 import '../settings.dart';
 
 
@@ -62,18 +60,6 @@ class _MenuState extends State<Menu> {
             );
           }
         ),
-        // SpeedDialChild(
-        //     child: const Icon(Icons.bar_chart),
-        //     label: "Training Analysis",
-        //     onTap: () {
-        //       Navigator.push(context,
-        //           MaterialPageRoute(builder: (context) =>
-        //           const TrainingAnalysis()
-        //           )
-        //       );
-        //     }
-        // ),
-
       ],
     );
   }
