@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:traqer/Views/my_activities.dart';
 import 'package:traqer/Views/about.dart';
+import '../../Utils/ShopDialog.dart';
 import '../settings.dart';
+
 
 
 
@@ -14,6 +16,12 @@ class Menu extends StatefulWidget {
 }
 
 class _MenuState extends State<Menu> {
+
+  void _showDialog(){
+    setState(() {
+      showDialog(context: context, builder: (BuildContext context) => const ShopDialog());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +51,7 @@ class _MenuState extends State<Menu> {
             onTap: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) =>
-                  MyActivities()
+                  const MyActivities()
                   )
               );
             }
@@ -59,6 +67,14 @@ class _MenuState extends State<Menu> {
               )
             );
           }
+        ),
+        SpeedDialChild(
+            labelStyle: Theme.of(context).textTheme.bodySmall,
+            child: const Icon(Icons.shopping_bag),
+            label: "Shop",
+            onTap: () {
+              _showDialog();
+            }
         ),
       ],
     );

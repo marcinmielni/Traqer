@@ -6,6 +6,7 @@ import 'package:traqer/Models/track_reader.dart';
 import 'package:traqer/Views/Widgets/menu.dart';
 import 'package:traqer/Views/Widgets/meter.dart';
 import 'package:traqer/Views/training_live.dart';
+import 'package:traqer/Utils/ShopDialog.dart';
 
 
 class Home extends StatefulWidget {
@@ -45,6 +46,7 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return
@@ -65,24 +67,24 @@ class _HomeState extends State<Home> {
                   Text("Start training!", style: TextStyle(fontSize: 40, color: Colors.green)),
                 ],),
               onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => const TrainingLive()
-                  ),
-                ).then((_) {
-                  _getSevenDaysDistance().then((value) {
-                    setState(() {
-                      sevenDaysDistance = value;
+                Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => const ShopDialog())).then((_) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const TrainingLive()),
+                    ).then((_) {
+                      _getSevenDaysDistance().then((value) {
+                        setState(() {
+                          sevenDaysDistance = value;
+                        });
+                      });
+                      _getSevenDaysTime().then((value) {
+                        setState(() {
+                          sevenDaysTime = value;
+                        });
+                      });
                     });
                   });
-                  _getSevenDaysTime().then((value){
-                    setState(() {
-                      sevenDaysTime = value;
-                    });
-                  }
-                  );
-                });
               },
             ),
               Container(height: 50),
